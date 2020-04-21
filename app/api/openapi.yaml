@@ -50,7 +50,37 @@ paths:
                 schema:
                   $ref: '#/components/schemas/Error'
         operationId: connectors.rolldice
-  /avg/{session_id}:
+  /summary:
+    post:
+      summary: Get the avg of the dice rolled
+      description: Returns a truncated data set with dice rolled, num of sets, and final avg
+      parameters:
+        - in: query
+          name: session_id
+          required: true
+          schema:
+            type: integer
+      operationId: connectors.get_summary
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Set'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /avg:
     post:
       summary: Get the avg of the dice rolled
       description: Returns a truncated data set with dice rolled, num of sets, and final avg
@@ -80,7 +110,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /minmax/{session_id}:
+  /minmax:
     post:
       summary: Get the avg of the dice rolled
       description: Returns a truncated data set with dice rolled, num of sets, and final avg
