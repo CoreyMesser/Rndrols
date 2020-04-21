@@ -1,8 +1,12 @@
 import random
 
-from connectors import _log
+from logger import LoggerService
 from db_service import db_session, get_session_id
 from models import Dice
+import re
+
+ls = LoggerService()
+_log = ls.get_logger()
 
 class MinMaxDie(object):
 
@@ -47,25 +51,34 @@ class MinMaxDie(object):
         db.add(di)
         db.commit()
 
-    def dice_roller(self, dice_bag, num_rolls):
+    def dice_roller(self, dice_bag, num_rolls, session_id):
         """
-        Unpacks dice_bag
         :param dice_bag:
         :param num_rolls:
+        :param session_id:
         :return:
         """
-        session_id = get_session_id()
         for dice in dice_bag:
+            _log.info("[DICE ROLLER]Rolling...")
             rolls = self.dice_n_sides(num_dice=dice[0], num_side=dice[1], num_rolls=num_rolls)
             self.rolls_db_service(rolls=rolls, session_id=session_id)
 
     def get_avg(self):
         pass
 
+    def parse_request(self, req_dict):
+        d_list = re.findall(r"\d{1,10}.\d{1,10}", req_dict['body']['dice_bag'])
+        dice_bag = []
+        for dice in d_list:
+            d = (dice.split(','))
+            dice_bag.append([int(d[0]), int(d[1])])
+        return {'dice_bag': dice_bag,
+                'num_rolls': int(req_dict['body']['num_rolls']),
+                'data_set': int(req_dict['body']['data_set'])}
 
     def dice_dict(self, dice):
         try:
-            if not dice:
+            if len(dice) < 1:
                 return {
                     'dice_bag': [[1, 12], [2, 6], [3, 4], [6, 2]],
                     'num_rolls': 1000000,
@@ -74,17 +87,19 @@ class MinMaxDie(object):
             else:
                 return dice
         except Exception as e:
-            _log.error(f"[ROLL DICE][ERROR] You rolled a Nat 1 : {e}")
-
+            _log.error(f"[DICE DICT][ERROR] You rolled a Nat 1 : {e}")
 
     def dice_loop(self, dice):
-        dice = self.dice_dict(dice)
+        dice = self.parse_request(req_dict=dice)
+        dice = self.dice_dict(dice=dice)
+        session_id = get_session_id()
         try:
             _log.info('Rolling polyhedrons...')
-            z = dice['data_set']
+            z = int(dice['data_set'])
             while z > 0:
-                self.dice_roller(dice_bag=dice['dice_bag'], num_rolls=dice['num_rolls'])
+                _log.info(f'[DICE LOOP]Rolling set {z}...')
+                self.dice_roller(dice_bag=dice['dice_bag'], num_rolls=dice['num_rolls'], session_id=session_id)
                 z -= 1
             _log.info('Rolling completed... NERD!')
         except Exception as e:
-            _log.error(f"[ROLL DICE][ERROR] You rolled a Nat 1 : {e}")
+            _log.error(f"[DICE LOOP][ERROR] You rolled a Nat 1 : {e}")

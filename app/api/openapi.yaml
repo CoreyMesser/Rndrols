@@ -12,29 +12,104 @@ paths:
         summary: Roll the dice.
         description: Rolls the bag of dice, if no dice are specified rolls a default set.
         requestBody:
-          description: Body must contain following key/value pairs dice_bag, num_rolls, data_set,
-          dice_bag is a list of lists in the format [[x,y]], where x is number of dice and y is sides, [[2,6],[3,4]],
-          num_rolls is the number of rolls in a set,
-          data_set is the number of sets.
-          required: false
           content:
-            application/json:
+            multipart/form-data:
               schema:
-                $ref: '#/components/schemas/Set'
+                type: object
+                properties:
+                  dice:
+                    type: string
+                    properties:
+                      dice_bag:
+                        type: array
+                        items:
+                          type: array
+                          items:
+                            type: integer
+                      num_rolls:
+                        type: integer
+                      data_set:
+                        type: integer
         responses:
           '200':
-            description: Response
+            description: Ok
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/Set'
-          '404':
+                  $ref: '#/components/schemas/Message'
+          '400':
+            description: Bad Request
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/Error'
-            description: Not Found
+          '404':
+            description: Not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
         operationId: connectors.rolldice
+  /avg/{session_id}:
+    post:
+      summary: Get the avg of the dice rolled
+      description: Returns a truncated data set with dice rolled, num of sets, and final avg
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema:
+            type: integer
+      operationId: connectors.get_avg
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Set'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /minmax/{session_id}:
+    post:
+      summary: Get the avg of the dice rolled
+      description: Returns a truncated data set with dice rolled, num of sets, and final avg
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema:
+            type: integer
+      operationId: connectors.get_min_max
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Set'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Error:

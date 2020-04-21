@@ -1,7 +1,7 @@
-from app.rndrols import MinMaxDie as mmd
-from app.logger import LoggerService as ls
+from logger import LoggerService
 import connexion
 
+ls = LoggerService()
 _log = ls.get_logger()
 
 def app_run():
