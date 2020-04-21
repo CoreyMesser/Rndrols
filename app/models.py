@@ -16,5 +16,7 @@ class Dice(Base):
     rolls = Column(Text)
     max_num = Column(Integer)
     min_num = Column(Integer)
-    max_thresh = Column(Integer)
     avg_num = Column(Integer)
+    max_thresh = Column(Integer)
+    min_thresh = Column(Integer)
+    avg_thresh = Column(Integer)

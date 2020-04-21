@@ -20,8 +20,10 @@ conn.execute("""CREATE TABLE IF NOT EXISTS dices
     rolls      TEXT,
     max_num    INT,
     min_num    INT,
+    avg_num    INT,
     max_thresh INT,
-    avg_num    INT
+    min_thresh INT,
+    avg_thresh INT
 )
 """)
 

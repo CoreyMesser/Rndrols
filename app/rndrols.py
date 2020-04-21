@@ -46,8 +46,11 @@ class MinMaxDie(object):
         di.rolls = rolls['rolls']
         di.max_num = max(rolls['rolls'])
         di.min_num = min(rolls['rolls'])
-        di.avg_num = sum(rolls['rolls'])/len(rolls['rolls'])
-        di.max_thresh = rolls['rolls'].count(max(rolls['rolls']))
+        avg = sum(rolls['rolls'])/len(rolls['rolls'])
+        di.avg_num = avg
+        di.max_thresh = rolls['rolls'].count(rolls['num_side'] * rolls['num_dice'])
+        di.min_thresh = rolls['rolls'].count(rolls['num_dice'])
+        di.avg_thresh = rolls['rolls'].count(int(avg))
         db.add(di)
         db.commit()
 
