@@ -15,14 +15,14 @@ def rolldice(**kwargs):
 def get_summary(session_id):
     return dr.summarize_stats(session_id=session_id)
 
+
 def get_avg(session_id):
-    pass
+    return dr.df_plot_avg_vs_num_dice(session_id=session_id)
 
 
 def get_min_max(session_id):
-    pass
+    return dr.df_plot_max_thresh_vs_num_dice(session_id=session_id)
 
 
-def export_session_to_csv():
-    pass
-
+def export_session_to_csv(session_id):
+    return dr.dump_to_csv(session_id)
