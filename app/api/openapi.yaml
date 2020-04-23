@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Random Rolls
   description: Roll a set of dice against a known set to determin statistical averages.
-  version: "0.0.1"
+  version: "0.2.0"
 servers:
   - url: /rndrolls
     description: Main server url
@@ -83,7 +83,7 @@ paths:
   /avg:
     post:
       summary: Get the avg of the dice rolled
-      description: Returns a truncated data set with dice rolled, num of sets, and final avg
+      description: Returns success and plot
       parameters:
         - in: query
           name: session_id
@@ -113,7 +113,7 @@ paths:
   /minmax:
     post:
       summary: Get the avg of the dice rolled
-      description: Returns a truncated data set with dice rolled, num of sets, and final avg
+      description: Returns success and plot
       parameters:
         - in: query
           name: session_id

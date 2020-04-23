@@ -13,10 +13,8 @@ connexion == 2.6.0
 # Rndrols/app/db_service.py: 7
 matplotlib == 3.2.1
 
-# Rndrols/app/data_services.py: 1
 # Rndrols/app/db_service.py: 6
 numpy == 1.18.3
 
-# Rndrols/app/data_services.py: 2
 # Rndrols/app/db_service.py: 5
 pandas == 1.0.3

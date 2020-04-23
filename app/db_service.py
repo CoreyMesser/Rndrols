@@ -54,6 +54,7 @@ def parse_resultsproxy_to_dict(result):
         a.append(d)
     return a
 
+
 class Stats(object):
 
     def __init__(self):
@@ -107,7 +108,6 @@ class DataRetrieval(object):
         mp.show()
         return "[PLOT MAX THRESH] Success"
 
-
     def collate_rolls(self, rolls_list):
         pass
 
@@ -127,7 +127,6 @@ class DataRetrieval(object):
                           'avg_thresh': row['avg_thresh']}
             sc += 1
         return summary
-
 
     def df_get_session(self, session_id):
         sql = f"""SELECT * FROM dices WHERE session_id = {session_id} ORDER BY num_sides"""
