@@ -5,6 +5,7 @@ from logger import LoggerService
 ls = LoggerService()
 _log = ls.get_logger()
 
+
 def app_run():
     _log.info("___RndRolls starting___")
     try:
@@ -15,6 +16,7 @@ def app_run():
 
     except Exception as e:
         _log.error(f"[ERROR] RndRolls failed to start due to: {e}")
+
 
 if __name__ == '__main__':
     app_run()
