@@ -1,13 +1,13 @@
-from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database
-from sqlalchemy.orm import sessionmaker
 import re
+
 import pandas as pd
-import numpy as np
 from matplotlib import pyplot as mp
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy_utils import database_exists, create_database
 
 engine = create_engine("postgres:///rndrolls")
-if not database_exists(engine.url):
+if not dastabase_exists(engine.url):
     create_database(engine.url)
 
 print(database_exists(engine.url))

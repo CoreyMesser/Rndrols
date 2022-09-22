@@ -1,5 +1,6 @@
-from logger import LoggerService
 import connexion
+
+from logger import LoggerService
 
 ls = LoggerService()
 _log = ls.get_logger()

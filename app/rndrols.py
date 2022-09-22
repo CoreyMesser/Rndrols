@@ -1,12 +1,13 @@
 import random
-
-from logger import LoggerService
-from db_service import db_session, get_session_id
-from models import Dice
 import re
+
+from db_service import db_session, get_session_id
+from logger import LoggerService
+from models import Dice
 
 ls = LoggerService()
 _log = ls.get_logger()
+
 
 class MinMaxDie(object):
 
